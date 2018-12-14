@@ -1,0 +1,1 @@
+fab -w -f *.py start|stop
