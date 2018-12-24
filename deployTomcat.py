@@ -25,7 +25,7 @@ def upload():
 #重命名改端口
 def rename():
     with cd(remotePath):
-        suffix = prompt("输入名称")
+        suffix = prompt("输入应用名称")
         listSuffix = suffix.split(',')
 
         shutdownPort = 8005
