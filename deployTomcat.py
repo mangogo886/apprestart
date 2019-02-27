@@ -44,9 +44,9 @@ def rename():
             run("cp -r %s %s" % (tomcatName, tomcatfile))
 
             cmd1 = '''sed -i 's/Server port="8005"/Server port="%s"/g' %s''' % (shutdownPort, tomcatConfig)
-            cmd2 = '''sed -i 's/Connector port="8080"/Server port="%s"/g' %s''' % (httpPort, tomcatConfig)
-            cmd3 = '''sed -i 's/redirectPort="8443"/Server port="%s"/g' %s''' % (redirectPort, tomcatConfig)
-            cmd4 = '''sed -i 's/Connector port="8009"/Server port="%s"/g' %s''' % (lastPort, tomcatConfig)
+            cmd2 = '''sed -i 's/Connector port="8080"/Connector port="%s"/g' %s''' % (httpPort, tomcatConfig)
+            cmd3 = '''sed -i 's/redirectPort="8443"/redirectPort="%s"/g' %s''' % (redirectPort, tomcatConfig)
+            cmd4 = '''sed -i 's/Connector port="8009"/Connector port="%s"/g' %s''' % (lastPort, tomcatConfig)
 
             run(cmd1)
             run(cmd2)
