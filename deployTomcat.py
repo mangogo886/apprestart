@@ -5,14 +5,14 @@
 from fabric.api import *
 from fabric.contrib.files import *
 
-env.hosts = ['']
-env.user = 'ubuntu'
-env.password = ''
-tarball = "tomcat-7.0.82-done.tar.gz"
-tomcatName = "tomcat-7.0.82"
-localPath = "/data/ops/test/"
+env.hosts = raw_input('ip:')
+env.user = 'root'
+env.password = raw_input('密码:')
+tarball = "tomcat-7.0.93.tar.gz"
+tomcatName = "tomcat-7.0.93"
+localPath = "/data/"
 tomcatPath = localPath + tarball
-remotePath = "/data/ops/test/"
+remotePath = "/data/"
 config = "/conf/server.xml"
 
 #上传Tomcat 并解压
@@ -34,10 +34,6 @@ def rename():
         lastPort = 8009
 
         for suf in listSuffix:
-            shutdownPort = shutdownPort - 1
-            httpPort = httpPort + 1
-            redirectPort = redirectPort + 1
-            lastPort = lastPort + 1
 
             tomcatfile = tomcatName + "-" + suf
             tomcatConfig = tomcatfile + config
@@ -47,6 +43,10 @@ def rename():
             cmd2 = '''sed -i 's/Connector port="8080"/Connector port="%s"/g' %s''' % (httpPort, tomcatConfig)
             cmd3 = '''sed -i 's/redirectPort="8443"/redirectPort="%s"/g' %s''' % (redirectPort, tomcatConfig)
             cmd4 = '''sed -i 's/Connector port="8009"/Connector port="%s"/g' %s''' % (lastPort, tomcatConfig)
+            shutdownPort = shutdownPort - 1
+            httpPort = httpPort + 1
+            redirectPort = redirectPort + 1
+            lastPort = lastPort + 1
 
             run(cmd1)
             run(cmd2)
