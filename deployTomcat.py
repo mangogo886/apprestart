@@ -2,6 +2,7 @@
 # coding:utf-8
 #批量部署tomcat
 
+import ConfigParser
 from fabric.api import *
 from fabric.contrib.files import *
 
@@ -14,6 +15,10 @@ localPath = "/data/"
 tomcatPath = localPath + tarball
 remotePath = "/data/"
 config = "/conf/server.xml"
+configPath="config.ini"
+cf=ConfigParser.ConfigParser()
+cf.read(configPath)
+opts=cf.get(env.hosts,'app')
 
 #上传Tomcat 并解压
 def upload():
@@ -25,8 +30,8 @@ def upload():
 #重命名改端口
 def rename():
     with cd(remotePath):
-        suffix = prompt("输入应用名称")
-        listSuffix = suffix.split(',')
+        #suffix = prompt("输入应用名称")
+        listSuffix = opts.split(',')
 
         shutdownPort = 8005
         httpPort = 8080
